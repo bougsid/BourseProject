@@ -49,7 +49,7 @@ public class SocieteMetier implements ISocieteMetier {
         infos.put("totalAchat", Double.valueOf(this.totalAchatActions(code)));
         infos.put("AVGVente", this.AVGVenteActions(code));
         infos.put("AVGAchat", this.AVGAchatActions(code));
-        infos.put("estimation", this.priceEstimation());
+        infos.put("estimation", this.priceEstimation(code));
         return infos;
     }
 
@@ -78,8 +78,8 @@ public class SocieteMetier implements ISocieteMetier {
     }
 
     @Override
-    public double priceEstimation() {
-        return 0;
+    public double priceEstimation(String code) {
+        return (AVGAchatActions(code)+AVGVenteActions(code))/2;
     }
 
     private int getTotalAction(List<Ordre> ordres) {
@@ -99,11 +99,4 @@ public class SocieteMetier implements ISocieteMetier {
         }
         return totalPrice / ordres.size();
     }
-//
-//    @Override
-//    public Page<Societe> getSocietePage(int page, int size) {
-//        return this.repository.findAll(new PageRequest(page, size));
-//    }
-
-
 }

@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by ayoub on 11/14/2016.
  */
 @RestController
-@RequestMapping("/societe/{code}")
+@RequestMapping("/api/societe/{code}")
 public class SocieteRestService {
     @Autowired
     private SocieteMetier metier;

@@ -24,9 +24,4 @@ public class NotificationsService {
         AmqpTemplate template = context.getBean(AmqpTemplate.class);
         template.convertAndSend("bourse-queue", new ObjectMapper().writeValueAsString(societes));
     }
-
-//    public void sendMessage(String message) {
-//        AmqpTemplate template = context.getBean(AmqpTemplate.class);
-//        template.convertAndSend("bourse-queue", message);
-//    }
 }

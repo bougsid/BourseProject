@@ -25,15 +25,15 @@ public class BourseExtracrtor {
     private static final String URL = "https://www.wafabourse.com/marches/actions/r";
 
     public static List<Societe> extractData() throws IOException {
-        int i = 0;
         List<Societe> societes = new ArrayList<>();
         Document doc = Jsoup.connect(URL).get();
         Element table = doc.select("table[class=t-data-grid]").first();
         Iterator<Element> trs = table.select("tr").iterator();
         Element tr;
         trs.next();
+        int i = 0;
         while (trs.hasNext()) {
-            if (i == 1) break;
+            if (i == 5) break;
             i++;
             tr = trs.next();
             societes.add(extractSocieteAndOrdres(tr));
@@ -74,7 +74,12 @@ public class BourseExtracrtor {
         while (achatRows.hasNext()) {
             achatRow = achatRows.next();
             int actionsCount = Integer.parseInt(achatRow.select("td[class=" + tdClassSupplier.get() + "Volume]").text().replaceAll(" ", ""));
-            double actionPrice = Double.parseDouble(achatRow.select("td[class=" + tdClassSupplier.get() + "Price]").text().replace(",", ".").replaceAll(" ", ""));
+            double actionPrice = 0;
+            try {
+                actionPrice = Double.parseDouble(achatRow.select("td[class=" + tdClassSupplier.get() + "Price]").text().replace(",", ".").replaceAll(" ", ""));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
             Ordre ordre = ordreSupplier.get();
             ordre.setOrdreDate(LocalDate.now());
             ordre.setActionsCount(actionsCount);

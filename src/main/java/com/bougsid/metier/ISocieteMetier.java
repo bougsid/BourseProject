@@ -28,5 +28,5 @@ public interface ISocieteMetier extends Remote {
 
     double AVGAchatActions(String code) throws RemoteException;
 
-    double priceEstimation() throws RemoteException;
+    double priceEstimation(String code) throws RemoteException;
 }

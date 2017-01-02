@@ -29,8 +29,9 @@ public class ScheduledExtract {
     @Scheduled(fixedRate = 5000)
     public void checkForUpdate() throws IOException {
         System.out.println("Run Extractor Service And Send Notification");
-//        notificationsService.sendNotification(BourseExtracrtor.extractData());
-        List<Societe> societes = societeRepository.findAll();
+        List<Societe> societes = BourseExtracrtor.extractData();
+        societeRepository.save(societes);
+        societes = societeRepository.findAll();
         societes.forEach(s -> {
             try {
                 s.setInfos(societeMetier.getAllInfos(s.getCode()));
